@@ -56,8 +56,8 @@ pipelines:
             - name: firstArtifactory                            # <-- replace with your artifactory integration
           inputSteps:
             - name: docker_build
-#           outputResources:
-#             - name: dbp_image
+          outputResources:
+            - name: dbp_image
 
 #       - name: publish_dbp_build
 #         type: PublishBuildInfo
