@@ -47,15 +47,15 @@ pipelines:
           integrations:
             - name: firstArtifactory                            # <-- replace with your artifactory integration
 
-#       - name: docker_push
-#         type: DockerPush
-#         configuration:
-#           affinityGroup: dbp_group
-#           targetRepository: docker-local
-#           integrations:
-#             - name: firstArtifactory                            # <-- replace with your artifactory integration
-#           inputSteps:
-#             - name: docker_build
+      - name: docker_push
+        type: DockerPush
+        configuration:
+          affinityGroup: dbp_group
+          targetRepository: docker-local
+          integrations:
+            - name: firstArtifactory                            # <-- replace with your artifactory integration
+          inputSteps:
+            - name: docker_build
 #           outputResources:
 #             - name: dbp_image
 
