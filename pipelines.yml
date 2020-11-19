@@ -92,7 +92,7 @@ resources:
     configuration:
       registry: firstArtifactory      # replace with your Artifactory integration
       sourceRepository: docker_local   # required if registry is Artifactory
-      imageName: 192.168.50.2:8082/docker_local/mydockerbase  # replace with your image path and name
+      imageName: 192.168.50.2:8082/artifactory/docker_local/mydockerbase  # replace with your image path and name
       imageTag: latest
       autoPull: true
       
@@ -107,7 +107,7 @@ pipelines:
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: 192.168.50.2:8082/docker_local/mydockerbase  # replace with your image path and name
+          dockerImageName: 192.168.50.2:8082/artifactory/docker_local/mydockerbase  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo
