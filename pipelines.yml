@@ -7,14 +7,14 @@ resources:
       branches:
         include: master
 
-#   - name: dbp_image
-#     type: Image
-#     configuration:
-#       registry: firstArtifactory                               # <-- replace with your artifactory integration
-#       sourceRepository: docker_local               # <-- required if registry is Artifactory
-#       imageName: 192.168.50.2:8082/docker-local/dbp  # < -- replace with your image path and name
-#       imageTag: latest
-#       autoPull: true
+  - name: dbp_image
+    type: Image
+    configuration:
+      registry: firstArtifactory                               # <-- replace with your artifactory integration
+      sourceRepository: docker_local               # <-- required if registry is Artifactory
+      imageName: 192.168.50.2:8082/docker-local/dbp  # < -- replace with your image path and name
+      imageTag: latest
+      autoPull: true
       
 #   - name: dbp_build_info
 #     type: BuildInfo
