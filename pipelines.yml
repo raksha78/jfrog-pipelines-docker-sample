@@ -2,17 +2,17 @@ resources:
   - name: dbp_repo
     type: GitRepo
     configuration:
-      gitProvider: my_github                       # <-- replace with your integration
-      path: jfrog/jfrog-pipelines-docker-sample    # <-- replace with your repository name
+      gitProvider: firstGitHub                      # <-- replace with your integration
+      path: raksha78/jfrog-pipelines-docker-sample    # <-- replace with your repository name
       branches:
         include: master
 
   - name: dbp_image
     type: Image
     configuration:
-      registry: art                                # <-- replace with your artifactory integration
+      registry: firstArtifactory                               # <-- replace with your artifactory integration
       sourceRepository: docker_local               # <-- required if registry is Artifactory
-      imageName: kaloula.jfrog-pipelines.com/docker-local/dbp  # < -- replace with your image path and name
+      imageName: 192.168.50.2:8082/artifactory/docker-local/dbp  # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
       
@@ -40,7 +40,7 @@ pipelines:
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: kaloula.jfrog-pipelines.com/docker-local/dbp  # replace with your image path and name
+          dockerImageName: 192.168.50.2:8082/artifactory/docker-local/dbp  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo
