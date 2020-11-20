@@ -1,18 +1,18 @@
 resources:
-  - name: dbp_repo
+  - name: dbp_repo1
     type: GitRepo
     configuration:
-      gitProvider: firstGitHub                      # <-- replace with your integration
+      gitProvider: rak_github                      # <-- replace with your integration
       path: raksha78/jfrog-pipelines-docker-sample    # <-- replace with your repository name
       branches:
         include: master
 
-#   - name: dbp_image
+#   - name: dbp_image1
 #     type: Image
 #     configuration:
-#       registry: firstArtifactory                               # <-- replace with your artifactory integration
-#       sourceRepository: docker_local               # <-- required if registry is Artifactory
-#       imageName: 192.168.50.2:8082/docker-local/dbp  # < -- replace with your image path and name
+#       registry: rak_art                               # <-- replace with your artifactory integration
+#       sourceRepository: dockerLocal               # <-- required if registry is Artifactory
+#       imageName: pipe-master.jfrog.info:8082/dockerLocal/dbp  # < -- replace with your image path and name
 #       imageTag: latest
 #       autoPull: true
       
@@ -32,30 +32,30 @@ resources:
       
 
 pipelines:
-  - name: pipeline_dbp
+  - name: pipeline_dbp_rak
     steps:
-      - name: docker_build
+      - name: docker_build1
         type: DockerBuild
         configuration:
           affinityGroup: dbp_group
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: 192.168.50.2:8082/docker_local/dbp # replace with your image path and name
+          dockerImageName: pipe-master.jfrog.info:8082/dockerLocal/dbp # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
-            - name: dbp_repo
+            - name: dbp_repo1
           integrations:
-            - name: firstArtifactory                            # <-- replace with your artifactory integration
+            - name: rak_art                           # <-- replace with your artifactory integration
 
-      - name: docker_push
+      - name: docker_push1
         type: DockerPush
         configuration:
           affinityGroup: dbp_group
-          targetRepository: docker_local
+          targetRepository: dockerLocal
           integrations:
-            - name: firstArtifactory                            # <-- replace with your artifactory integration
+            - name: rak_art                            # <-- replace with your artifactory integration
           inputSteps:
-            - name: docker_build
+            - name: docker_build1
 #           outputResources:
 #             - name: dbp_image
 
