@@ -50,5 +50,13 @@ pipelines:
             - name: docker_build_01
           outputResources:
             - name: dbp_image_01
+            
+      - name: publish_dbp_build_01
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: docker_push_01
+          outputResources:
+            - name: dbp_build_info_01
 
    
