@@ -12,7 +12,7 @@ resources:
     configuration:
       registry: art_v                               # <-- replace with your artifactory integration
       sourceRepository: rak_docker              # <-- required if registry is Artifactory
-      imageName: dev.jfrog-pipelines.com/artifactory/rak_docker/rak # < -- replace with your image path and name
+      imageName: dev.jfrog-pipelines.com/artifactory/rak_docker/dbp # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
       
@@ -32,7 +32,7 @@ pipelines:
           affinityGroup: dbp_group_001
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: dev.jfrog-pipelines.com/artifactory/rak_docker/rak  # replace with your image path and name
+          dockerImageName: dev.jfrog-pipelines.com/artifactory/rak_docker/dbp  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo_01
