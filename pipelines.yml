@@ -57,7 +57,7 @@ pipelines:
           inputSteps:
             - name: docker_build_01
           outputResources:
-            - name: dbp_image_rak
+            - name: dbp_image_01
 
       - name: publish_dbp_build_01
         type: PublishBuildInfo
@@ -65,7 +65,7 @@ pipelines:
           inputSteps:
             - name: docker_push_01
           outputResources:
-            - name: dbp_build_rak_info1
+            - name: dbp_build_info_01
 
 #       - name: promote_dbp_build1
 #         type: PromoteBuild
