@@ -1,26 +1,26 @@
 resources:
-  - name: dbp_repo1
+  - name: dbp_repo_01
     type: GitRepo
     configuration:
-      gitProvider: rak_github                      # <-- replace with your integration
+      gitProvider: raksha78_github                      # <-- replace with your integration
       path: raksha78/jfrog-pipelines-docker-sample    # <-- replace with your repository name
       branches:
         include: master
 
-  - name: dbp_image1
+  - name: dbp_image_01
     type: Image
     configuration:
-      registry: rak_art                               # <-- replace with your artifactory integration
-      sourceRepository: docker_local               # <-- required if registry is Artifactory
-      imageName: pipelines.westus.cloudapp.azure.com:8082/docker_local/dbp  # < -- replace with your image path and name
+      registry: art_v                               # <-- replace with your artifactory integration
+      sourceRepository: rak_docker              # <-- required if registry is Artifactory
+      imageName: dev.jfrog-pipelines.com/:8082/rak_docker/rak  # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
       
-  - name: dbp_build_info1
+  - name: dbp_build_info_01
     type: BuildInfo
     configuration:
-      sourceArtifactory: rak_art
-      buildName: dbp_build1
+      sourceArtifactory: art_v
+      buildName: dbp_build_rak_1
       buildNumber: 1    
 
 #   - name: dbp_promoted_build_info
@@ -34,38 +34,38 @@ resources:
 pipelines:
   - name: pipeline_dbp_rak
     steps:
-      - name: docker_build1
+      - name: docker_build_01
         type: DockerBuild
         configuration:
-          affinityGroup: dbp_group
+          affinityGroup: dbp_group_001
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: pipelines.westus.cloudapp.azure.com:8082/docker_local/dbp # replace with your image path and name
+          dockerImageName: dev.jfrog-pipelines.com/:8082/rak_docker/rak # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
-            - name: dbp_repo1
+            - name: dbp_repo_01
           integrations:
-            - name: rak_art                           # <-- replace with your artifactory integration
+            - name: art_v                           # <-- replace with your artifactory integration
 
-      - name: docker_push1
+      - name: docker_push_01
         type: DockerPush
         configuration:
-          affinityGroup: dbp_group
-          targetRepository: docker_local
+          affinityGroup: dbp_group_001
+          targetRepository: rak_docker
           integrations:
-            - name: rak_art                            # <-- replace with your artifactory integration
+            - name: art_v                            # <-- replace with your artifactory integration
           inputSteps:
-            - name: docker_build1
+            - name: docker_build_01
           outputResources:
-            - name: dbp_image1
+            - name: dbp_image_rak
 
-      - name: publish_dbp_build1
+      - name: publish_dbp_build_01
         type: PublishBuildInfo
         configuration:
           inputSteps:
-            - name: docker_push1
+            - name: docker_push_01
           outputResources:
-            - name: dbp_build_info1
+            - name: dbp_build_rak_info1
 
 #       - name: promote_dbp_build1
 #         type: PromoteBuild
