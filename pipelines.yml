@@ -12,7 +12,7 @@ resources:
     configuration:
       registry: art_v                               # <-- replace with your artifactory integration
       sourceRepository: rak_docker              # <-- required if registry is Artifactory
-      imageName: dev.jfrog-pipelines.com/:8082/rak_docker/rak  # < -- replace with your image path and name
+      imageName: dev.jfrog-pipelines.com/rak_docker/rak  # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
       
@@ -23,14 +23,6 @@ resources:
       buildName: dbp_build_rak_1
       buildNumber: 1    
 
-#   - name: dbp_promoted_build_info
-#     type: BuildInfo
-#     configuration:
-#       sourceArtifactory: rak_art
-#       buildName: dbp_build
-#       buildNumber: 1
-      
-
 pipelines:
   - name: pipeline_dbp_rak
     steps:
@@ -40,7 +32,7 @@ pipelines:
           affinityGroup: dbp_group_001
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: dev.jfrog-pipelines.com/:8082/rak_docker/rak # replace with your image path and name
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker/rak # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
             - name: dbp_repo_01
@@ -59,69 +51,4 @@ pipelines:
           outputResources:
             - name: dbp_image_01
 
-      - name: publish_dbp_build_01
-        type: PublishBuildInfo
-        configuration:
-          inputSteps:
-            - name: docker_push_01
-          outputResources:
-            - name: dbp_build_info_01
-
-#       - name: promote_dbp_build1
-#         type: PromoteBuild
-#         configuration:
-#           targetRepository: demo-pipelines
-#           integrations:
-#             - name: rak_art
-#           inputResources:
-#             - name: dbp_build_info1
-#           outputResources:
-#             - name: dbp_promoted_build_info
-
-# resources:
-#   - name: dbp_repo
-#     type: GitRepo
-#     configuration:
-#       gitProvider: firstGitHub   # replace with your integration
-#       path: raksha78/jfrog-pipelines-docker-sample    # replace with your repository name
-#       branches:
-#         include: master
- 
-#   - name: dbp_image
-#     type: Image
-#     configuration:
-#       registry: firstArtifactory      # replace with your Artifactory integration
-#       sourceRepository: docker_local   # required if registry is Artifactory
-#       imageName: 192.168.50.2:8082/artifactory/docker_local/mydockerbase  # replace with your image path and name
-#       imageTag: latest
-#       autoPull: true
-      
-# pipelines:
-#   - name: pipeline_dbp
-#     configuration:
-#       nodePool: firstPool
-#     steps:
-#       - name: docker_build
-#         type: DockerBuild
-#         configuration:
-#           affinityGroup: dbp_group
-#           dockerFileLocation: .
-#           dockerFileName: Dockerfile
-#           dockerImageName: 192.168.50.2:8082/artifactory/docker_local/mydockerbase  # replace with your image path and name
-#           dockerImageTag: ${run_number}
-#           inputResources:
-#             - name: dbp_repo
-#           integrations:
-#             - name: firstArtifactory    # replace with your artifactory integration
- 
-#       - name: docker_push
-#         type: DockerPush
-#         configuration:
-#           affinityGroup: dbp_group
-#           targetRepository: docker_local
-#           integrations:
-#             - name: firstArtifactory    # replace with your artifactory integration
-#           inputSteps:
-#             - name: docker_build
-#           outputResources:
-#             - name: dbp_image
+   
